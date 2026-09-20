@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>The Belay Line — Scenario Trainer</title>
+<style>
+  :root {
+    --purple: #490E6F;
+    --gold: #FFE100;
+    --text: #231018;
+    --bg: #FBF8FD;
+    --lilac: #F5EEFA;
+  }
+  * { box-sizing: border-box; }
+  html, body { height: 100%; }
+  body {
+    margin: 0;
+    font-family: -apple-system, "Segoe UI", Calibri, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    display: flex;
+    justify-content: center;
+    padding: env(safe-area-inset-top,0px) 14px calc(env(safe-area-inset-bottom,0px) + 24px);
+  }
+  .wrap { width: 100%; max-width: 520px; padding-top: 20px; }
+  .banner {
+    background: var(--purple);
+    color: #fff;
+    border-radius: 14px 14px 0 0;
+    padding: 18px 20px 14px;
+    text-align: center;
+  }
+  .banner .eyebrow {
+    color: var(--gold);
+    font-size: 11.5px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .banner h1 { margin: 6px 0 2px; font-size: 21px; }
+  .banner .tag { color: var(--gold); font-style: italic; font-weight: 700; font-size: 13px; }
+  .card {
+    background: #fff;
+    border-radius: 0 0 14px 14px;
+    box-shadow: 0 4px 18px rgba(73,14,111,0.15);
+    padding: 22px 20px 26px;
+  }
+  .progress {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 16px;
+  }
+  .progress span {
+    flex: 1;
+    height: 5px;
+    border-radius: 3px;
+    background: #e6dbef;
+  }
+  .progress span.done { background: var(--purple); }
+  .progress span.current { background: var(--gold); }
+
+  #screen-start p, #screen-scenario p.text, #screen-outcome p.text, #screen-end p {
+    line-height: 1.55;
+    font-size: 15px;
+  }
+  .scenario-label {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--purple);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin-bottom: 6px;
+  }
+  .scenario-text {
+    background: var(--lilac);
+    border-left: 4px solid var(--purple);
+    padding: 12px 14px;
+    border-radius: 8px;
+    margin-bottom: 18px;
+    font-size: 15px;
+  }
+  .choices { display: flex; flex-direction: column; gap: 10px; }
+  .choice-btn {
+    text-align: left;
+    background: #fff;
+    border: 1.5px solid #d9cbe6;
+    border-radius: 10px;
+    padding: 12px 14px;
+    cursor: pointer;
+    font-family: inherit;
+  }
+  .choice-btn:active, .choice-btn:hover { background: var(--lilac); }
+  .choice-btn .d-name {
+    color: var(--purple);
+    font-weight: 700;
+    font-size: 14px;
+    display: block;
+    margin-bottom: 3px;
+  }
+  .choice-btn .d-action { font-size: 14px; color: var(--text); }
+
+  .outcome-box {
+    background: var(--lilac);
+    border-radius: 10px;
+    padding: 14px 16px;
+    margin-bottom: 18px;
+  }
+  .outcome-box .picked {
+    font-weight: 700;
+    color: var(--purple);
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin-bottom: 6px;
+  }
+
+  .primary-btn, .next-btn {
+    width: 100%;
+    padding: 13px;
+    background: var(--purple);
+    color: var(--gold);
+    border: none;
+    border-radius: 9px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    margin-top: 8px;
+  }
+  .secondary-note {
+    text-align: center;
+    font-size: 12.5px;
+    color: #8a7c92;
+    margin-top: 16px;
+    font-style: italic;
+  }
+  .summary-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px solid #eee;
+    font-size: 14px;
+  }
+  .summary-row:last-child { border-bottom: none; }
+  .hidden { display: none; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="banner">
+    <div class="eyebrow">Mountaineer Peaks &middot; PASS Period</div>
+    <h1>The Belay Line: Scenario Trainer</h1>
+    <div class="tag">Together We Climb</div>
+  </div>
+  <div class="card">
+
+    <div id="screen-start">
+      <p>Five quick scenes. Each one, you pick a D &mdash; Direct, Distract, Delegate, or Delay &mdash; and see how it plays out. There's no single right answer; the point is picking one and knowing what it actually looks like.</p>
+      <button class="primary-btn" onclick="startTrainer()">Start</button>
+    </div>
+
+    <div id="screen-scenario" class="hidden">
+      <div class="progress" id="progressBar"></div>
+      <div class="scenario-label" id="scenarioLabel"></div>
+      <div class="scenario-text" id="scenarioText"></div>
+      <div class="choices" id="choicesBox"></div>
+    </div>
+
+    <div id="screen-outcome" class="hidden">
+      <div class="progress" id="progressBarOutcome"></div>
+      <div class="outcome-box">
+        <div class="picked" id="pickedLabel"></div>
+        <p class="text" id="outcomeText"></p>
+      </div>
+      <button class="next-btn" id="nextBtn" onclick="nextScenario()">Next scene</button>
+    </div>
+
+    <div id="screen-end" class="hidden">
+      <p><strong>That's all five.</strong> Here's what you picked:</p>
+      <div id="summaryList"></div>
+      <p class="secondary-note">It doesn't matter which D you reach for &mdash; it matters that you reach for one.</p>
+      <button class="primary-btn" onclick="restart()">Run it again</button>
+    </div>
+
+  </div>
+</div>
+
+<script>
+const SCENARIOS = [
+  {
+    label: "Scene 1 of 5 \u2014 The Group Chat",
+    text: "You're in a class group chat. A few kids start making fun of a photo someone posted, piling on with jokes. It's escalating fast.",
+    choices: [
+      { d: "Direct", action: "Post: \u201COkay that's enough, this isn't cool.\u201D", outcome: "The jokes stop within a message or two \u2014 someone saying it plainly, in the chat, in real time, usually kills the pile-on before it snowballs further. It can feel exposed to be the one who says it, but a flat, calm line does more than an argument would." },
+      { d: "Distract", action: "Drop something unrelated: \u201Cwait did anyone start the science homework??\u201D", outcome: "The thread shifts. It's not a confrontation, so nobody has to save face \u2014 the jokes just quietly stop getting replies. Works well when you don't want to call anyone out directly, though it won't always land if the pile-on has real momentum." },
+      { d: "Delegate", action: "Screenshot it and flag it to a teacher or counselor.", outcome: "This gets an adult the full picture, which matters if the pile-on keeps happening beyond just tonight. It won't stop the chat in the next five minutes, but it's often the right call when it's part of a pattern, not a one-off." },
+      { d: "Delay", action: "Text the person being made fun of privately: \u201Chey, that chat was out of line, you good?\u201D", outcome: "The public pile-on doesn't stop from this alone, but the person being targeted finds out someone noticed and cared \u2014 which research keeps showing matters as much as stopping the incident itself." }
+    ]
+  },
+  {
+    label: "Scene 2 of 5 \u2014 The Cafeteria Table",
+    text: "A kid sits down at your lunch table. The group around you scoots down, laughing, and won't make room \u2014 basically pushing them back out.",
+    choices: [
+      { d: "Direct", action: "Say: \u201CThere's room, come sit.\u201D and make space.", outcome: "It's a small, physical action that undoes the exclusion instantly \u2014 no confrontation needed, no accusation made. This is Direct at its lowest-cost: you're not calling anyone out, just refusing to go along with it." },
+      { d: "Distract", action: "Start a new conversation and pull the kid into it.", outcome: "The awkward moment passes and the kid ends up included anyway, just sideways instead of head-on. Good option when calling out the group directly would just make them dig in." },
+      { d: "Delegate", action: "Mention it to the lunch monitor on your way out.", outcome: "It doesn't fix today's lunch, but if this table does this often, an adult tracking it matters more than any one save." },
+      { d: "Delay", action: "Catch the kid after lunch: \u201Cthat was kind of a jerk move, you can sit with us tomorrow.\u201D", outcome: "The moment itself already happened, but the kid leaves lunch knowing at least one person saw it and didn't think it was fine." }
+    ]
+  },
+  {
+    label: "Scene 3 of 5 \u2014 The Hallway",
+    text: "You see a kid trip in the hallway. A few kids nearby start calling him \u201Cclumsy\u201D and won't let it go, repeating it every time they pass him for the rest of the day.",
+    choices: [
+      { d: "Direct", action: "Say: \u201CAlright, that's enough, he gets it.\u201D", outcome: "Naming it out loud, calmly, usually ends a pile-on faster than ignoring it does \u2014 group teasing runs on momentum, and a flat statement takes the air out of it." },
+      { d: "Distract", action: "Ask the kid tripping, \u201Chey, you know what room 214 is? I'm lost,\u201D pulling him along with you.", outcome: "You've physically removed him from the repeat-teasing zone without making a scene. Nobody has to back down publicly \u2014 the moment just ends." },
+      { d: "Delegate", action: "Tell a hallway monitor it's been going on all day.", outcome: "A one-off trip-and-laugh usually isn't worth a report, but \u201Call day, every time he passes\u201D is a pattern \u2014 that's exactly the kind of thing worth flagging so it doesn't become a nickname that sticks." },
+      { d: "Delay", action: "Find him later: \u201Chey, that was a lot today, you alright?\u201D", outcome: "By the end of the day the teasing may have already run its course, but he knows someone noticed it wasn't fair \u2014 that tends to matter more than people expect." }
+    ]
+  },
+  {
+    label: "Scene 4 of 5 \u2014 Picking Teams",
+    text: "In gym class, team captains are picking players. One kid keeps getting skipped over, and the group is muttering and rolling their eyes every time his name comes up.",
+    choices: [
+      { d: "Direct", action: "As captain, pick him early and say why: \u201Che's solid, I want him.\u201D", outcome: "This one's the cleanest fix available \u2014 if you have any pick at all, using it removes the exclusion entirely instead of just softening it." },
+      { d: "Distract", action: "Joke around and ask him to help you warm up before teams are even set.", outcome: "By the time teams form, he's already been included in something, which takes some of the sting out of being picked last." },
+      { d: "Delegate", action: "Mention to the gym teacher afterward that team-picking is turning into a pattern for him.", outcome: "This doesn't help him today, but a teacher who knows can change how teams get picked going forward \u2014 assigned teams, captains rotating, whatever removes the moment entirely." },
+      { d: "Delay", action: "After class: \u201Cteam picking is rough, that wasn't about your game.\u201D", outcome: "It won't undo how the moment felt, but it separates his sense of himself from what a group of teenagers picking teams says about him \u2014 which is worth more than it sounds." }
+    ]
+  },
+  {
+    label: "Scene 5 of 5 \u2014 The Screenshot",
+    text: "Someone forwards an embarrassing screenshot of a classmate into a group chat you're in, and people start laughing and adding comments.",
+    choices: [
+      { d: "Direct", action: "Post: \u201Cnot cool, delete that.\u201D", outcome: "Naming it plainly, in the moment, is often what actually gets a screenshot pulled down or the thread to stop \u2014 silence reads as agreement, and one clear voice breaks that." },
+      { d: "Distract", action: "Don't engage with the screenshot at all \u2014 send something else to bump it down and move the conversation on.", outcome: "You haven't called anyone out, but you've stopped adding fuel, and a chat moves on fast when nobody keeps feeding a thread." },
+      { d: "Delegate", action: "Report the message in the app, and mention it to a trusted adult too.", outcome: "This is the one that actually gets a screenshot taken down for good and gets ahead of it spreading further \u2014 platforms and adults can do things you can't from inside the chat." },
+      { d: "Delay", action: "Message the person privately: \u201Cthat was going around, I'm sorry, that's not okay.\u201D", outcome: "The screenshot is already out there, but the person finds out someone in that chat didn't think it was funny \u2014 which matters a lot when it feels like everyone did." }
+    ]
+  }
+];
+
+let current = 0;
+const picks = [];
+
+function renderProgress(targetId) {
+  const bar = document.getElementById(targetId);
+  bar.innerHTML = "";
+  for (let i = 0; i < SCENARIOS.length; i++) {
+    const s = document.createElement("span");
+    if (i < current) s.className = "done";
+    else if (i === current) s.className = "current";
+    bar.appendChild(s);
+  }
+}
+
+function startTrainer() {
+  document.getElementById("screen-start").classList.add("hidden");
+  showScenario();
+}
+
+function showScenario() {
+  document.getElementById("screen-outcome").classList.add("hidden");
+  document.getElementById("screen-end").classList.add("hidden");
+  document.getElementById("screen-scenario").classList.remove("hidden");
+
+  const s = SCENARIOS[current];
+  document.getElementById("scenarioLabel").textContent = s.label;
+  document.getElementById("scenarioText").textContent = s.text;
+  renderProgress("progressBar");
+
+  const box = document.getElementById("choicesBox");
+  box.innerHTML = "";
+  s.choices.forEach((choice, idx) => {
+    const btn = document.createElement("button");
+    btn.className = "choice-btn";
+    btn.innerHTML = '<span class="d-name">' + choice.d + '</span><span class="d-action">' + choice.action + '</span>';
+    btn.onclick = () => pickChoice(idx);
+    box.appendChild(btn);
+  });
+}
+
+function pickChoice(idx) {
+  const s = SCENARIOS[current];
+  const choice = s.choices[idx];
+  picks.push(choice.d);
+
+  document.getElementById("screen-scenario").classList.add("hidden");
+  document.getElementById("screen-outcome").classList.remove("hidden");
+  document.getElementById("pickedLabel").textContent = "You chose: " + choice.d;
+  document.getElementById("outcomeText").textContent = choice.outcome;
+  renderProgress("progressBarOutcome");
+
+  document.getElementById("nextBtn").textContent = (current === SCENARIOS.length - 1) ? "See summary" : "Next scene";
+}
+
+function nextScenario() {
+  current++;
+  if (current >= SCENARIOS.length) {
+    showEnd();
+  } else {
+    showScenario();
+  }
+}
+
+function showEnd() {
+  document.getElementById("screen-outcome").classList.add("hidden");
+  document.getElementById("screen-end").classList.remove("hidden");
+  const list = document.getElementById("summaryList");
+  list.innerHTML = "";
+  SCENARIOS.forEach((s, i) => {
+    const row = document.createElement("div");
+    row.className = "summary-row";
+    row.innerHTML = "<span>" + s.label.split("\u2014")[1].trim() + "</span><strong>" + picks[i] + "</strong>";
+    list.appendChild(row);
+  });
+}
+
+function restart() {
+  current = 0;
+  picks.length = 0;
+  document.getElementById("screen-end").classList.add("hidden");
+  document.getElementById("screen-start").classList.remove("hidden");
+}
+</script>
+</body>
+</html>

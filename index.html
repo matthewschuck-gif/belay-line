@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Belay Line — Mountaineer Peaks</title>
+<style>
+  :root {
+    --purple: #490E6F;
+    --gold: #FFE100;
+    --text: #231018;
+    --bg: #FBF8FD;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: -apple-system, "Segoe UI", Calibri, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    display: flex;
+    justify-content: center;
+    padding: 24px 14px 60px;
+  }
+  .card {
+    width: 100%;
+    max-width: 480px;
+    background: #fff;
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 4px 18px rgba(73,14,111,0.15);
+  }
+  .banner {
+    background: var(--purple);
+    color: var(--gold);
+    text-align: center;
+    padding: 22px 16px 18px;
+  }
+  .banner .eyebrow {
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    font-weight: 700;
+    opacity: 0.9;
+    text-transform: uppercase;
+  }
+  .banner h1 { margin: 6px 0 2px; font-size: 24px; color: #fff; }
+  .banner .tag { font-style: italic; font-weight: 700; color: var(--gold); font-size: 13px; }
+  .links { padding: 20px; display: flex; flex-direction: column; gap: 12px; }
+  .link-card {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    border: 1.5px solid #d9cbe6;
+    border-radius: 10px;
+    padding: 14px 16px;
+  }
+  .link-card .name { font-weight: 700; color: var(--purple); font-size: 16px; }
+  .link-card .desc { font-size: 13.5px; color: #4a4150; margin-top: 3px; }
+  .footer {
+    text-align: center;
+    font-size: 12px;
+    color: #8a7c92;
+    padding: 4px 16px 20px;
+    font-style: italic;
+  }
+</style>
+</head>
+<body>
+  <div class="card">
+    <div class="banner">
+      <div class="eyebrow">Mountaineer Peaks Pastoral Systems</div>
+      <h1>The Belay Line</h1>
+      <div class="tag">Together We Climb</div>
+    </div>
+    <div class="links">
+      <a class="link-card" href="cairn.html">
+        <div class="name">Leave a Cairn</div>
+        <div class="desc">Shout out a Mountaineer who showed up with heart.</div>
+      </a>
+      <a class="link-card" href="lookout.html">
+        <div class="name">The Lookout</div>
+        <div class="desc">Something not sitting right? Tell the pastoral team.</div>
+      </a>
+      <a class="link-card" href="simulator.html">
+        <div class="name">Scenario Trainer</div>
+        <div class="desc">Five quick scenes — practice picking a D.</div>
+      </a>
+      <a class="link-card" href="poster.html">
+        <div class="name">Poster</div>
+        <div class="desc">Printable Shout It / Flag It poster.</div>
+      </a>
+    </div>
+    <div class="footer">Ephrata Middle School &middot; Mountaineer Peaks Pastoral Systems</div>
+  </div>
+</body>
+</html>

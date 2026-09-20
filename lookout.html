@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Lookout — EMS Report Form</title>
+<style>
+  :root {
+    --purple: #490E6F;
+    --gold: #FFE100;
+    --text: #231018;
+    --bg: #FBF8FD;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: -apple-system, "Segoe UI", Calibri, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    display: flex;
+    justify-content: center;
+    padding: 24px 14px 60px;
+  }
+  .card {
+    width: 100%;
+    max-width: 480px;
+    background: #fff;
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 4px 18px rgba(73,14,111,0.15);
+  }
+  .banner {
+    background: var(--purple);
+    color: var(--gold);
+    text-align: center;
+    padding: 18px 16px 14px;
+  }
+  .banner .eyebrow {
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    font-weight: 700;
+    opacity: 0.9;
+    text-transform: uppercase;
+  }
+  .banner h1 {
+    margin: 6px 0 2px;
+    font-size: 22px;
+    color: #fff;
+  }
+  .banner .tag {
+    font-style: italic;
+    font-weight: 700;
+    color: var(--gold);
+    font-size: 13px;
+  }
+  form { padding: 20px 20px 8px; }
+  .note {
+    background: #FFF8D6;
+    border-left: 4px solid var(--purple);
+    padding: 10px 12px;
+    font-size: 13.5px;
+    border-radius: 6px;
+    margin-bottom: 18px;
+  }
+  label {
+    display: block;
+    font-weight: 700;
+    color: var(--purple);
+    font-size: 14px;
+    margin: 16px 0 6px;
+  }
+  .hint { font-weight: 400; color: #6b6070; font-size: 12.5px; }
+  textarea, input[type=text], select {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1.5px solid #d9cbe6;
+    border-radius: 8px;
+    font-size: 15px;
+    font-family: inherit;
+    background: #fff;
+  }
+  textarea { min-height: 90px; resize: vertical; }
+  .checks {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+  .checks label {
+    font-weight: 400;
+    color: var(--text);
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 0;
+    background: #F5EEFA;
+    padding: 8px 10px;
+    border-radius: 8px;
+  }
+  .checks input { accent-color: var(--purple); width: 16px; height: 16px; }
+  button {
+    width: 100%;
+    margin-top: 22px;
+    padding: 13px;
+    background: var(--purple);
+    color: var(--gold);
+    border: none;
+    border-radius: 9px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+  }
+  button:disabled { opacity: 0.6; }
+  .footer {
+    text-align: center;
+    font-size: 12px;
+    color: #8a7c92;
+    padding: 4px 16px 20px;
+    font-style: italic;
+  }
+  #status {
+    display: none;
+    text-align: center;
+    padding: 30px 20px 34px;
+  }
+  #status h2 { color: var(--purple); margin-bottom: 6px; }
+  #status p { color: #4a4150; font-size: 14.5px; }
+  #status.error h2 { color: #a12; }
+</style>
+</head>
+<body>
+  <div class="card">
+    <div class="banner">
+      <div class="eyebrow">The Belay Line &middot; Delegate</div>
+      <h1>The Lookout</h1>
+      <div class="tag">Together We Climb</div>
+    </div>
+
+    <form id="tipForm">
+      <div class="note">
+        This goes straight to the pastoral team. You don't have to give your name — leave it blank if you'd rather not.
+      </div>
+
+      <div class="note" style="background:#FBE7E7;border-left-color:#a12;">
+        <strong>If someone is in immediate danger, don't use this form.</strong> Go straight to a staff member or the office, or call 911. This form isn't monitored in real time.
+      </div>
+
+      <label>What's going on? <span class="hint">(what you saw or heard)</span></label>
+      <textarea id="what" required placeholder="Be as specific as you can."></textarea>
+
+      <label>Where? <span class="hint">(optional)</span></label>
+      <input type="text" id="where" placeholder="e.g. locker bank C, cafeteria, group chat">
+
+      <label>When? <span class="hint">(optional)</span></label>
+      <input type="text" id="when" placeholder="e.g. today at lunch, this week">
+
+      <label>Have you already tried one of the 4 D's? <span class="hint">(check any that apply)</span></label>
+      <div class="checks">
+        <label><input type="checkbox" name="d" value="Direct"> Direct</label>
+        <label><input type="checkbox" name="d" value="Distract"> Distract</label>
+        <label><input type="checkbox" name="d" value="Delegate"> Delegate (this)</label>
+        <label><input type="checkbox" name="d" value="Delay"> Delay</label>
+      </div>
+
+      <label>Your name <span class="hint">(totally optional)</span></label>
+      <input type="text" id="name" placeholder="Leave blank to stay anonymous">
+
+      <button type="submit" id="submitBtn">Send it</button>
+    </form>
+
+    <div id="status">
+      <h2 id="statusTitle">Got it.</h2>
+      <p id="statusBody">A staff member will follow up. Thanks for saying something.</p>
+    </div>
+
+    <div class="footer">Ephrata Middle School &middot; Mountaineer Peaks Pastoral Systems</div>
+  </div>
+
+<script>
+  // Paste the Web App URL from your Apps Script deployment here.
+  const SCRIPT_URL = "PASTE_YOUR_APPS_SCRIPT_WEB_APP_URL_HERE";
+
+  const form = document.getElementById("tipForm");
+  const submitBtn = document.getElementById("submitBtn");
+  const statusBox = document.getElementById("status");
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    submitBtn.disabled = true;
+    submitBtn.textContent = "Sending...";
+
+    const dTried = Array.from(form.querySelectorAll('input[name="d"]:checked')).map(cb => cb.value);
+    const payload = {
+      what: document.getElementById("what").value.trim(),
+      where: document.getElementById("where").value.trim(),
+      when: document.getElementById("when").value.trim(),
+      dTried: dTried.join(", "),
+      name: document.getElementById("name").value.trim(),
+      submittedAt: new Date().toISOString()
+    };
+
+    try {
+      await fetch(SCRIPT_URL, {
+        method: "POST",
+        mode: "no-cors", // Apps Script web apps don't return CORS headers to fetch
+        headers: { "Content-Type": "text/plain;charset=utf-8" },
+        body: JSON.stringify(payload)
+      });
+      form.style.display = "none";
+      statusBox.style.display = "block";
+    } catch (err) {
+      statusBox.className = "error";
+      document.getElementById("statusTitle").textContent = "Something went wrong.";
+      document.getElementById("statusBody").textContent = "Please find a staff member directly, or try again.";
+      statusBox.style.display = "block";
+      form.style.display = "none";
+    }
+  });
+</script>
+</body>
+</html>

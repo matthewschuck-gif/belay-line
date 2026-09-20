@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Cairn — EMS Shoutout Form</title>
+<style>
+  :root {
+    --purple: #490E6F;
+    --gold: #FFE100;
+    --text: #231018;
+    --bg: #FBF8FD;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: -apple-system, "Segoe UI", Calibri, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    display: flex;
+    justify-content: center;
+    padding: 24px 14px 60px;
+  }
+  .card {
+    width: 100%;
+    max-width: 480px;
+    background: #fff;
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 4px 18px rgba(73,14,111,0.15);
+  }
+  .banner {
+    background: var(--purple);
+    color: var(--gold);
+    text-align: center;
+    padding: 18px 16px 14px;
+  }
+  .banner .eyebrow {
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    font-weight: 700;
+    opacity: 0.9;
+    text-transform: uppercase;
+  }
+  .banner h1 {
+    margin: 6px 0 2px;
+    font-size: 24px;
+    color: #fff;
+  }
+  .banner .tag {
+    font-style: italic;
+    font-weight: 700;
+    color: var(--gold);
+    font-size: 13px;
+  }
+  form { padding: 20px 20px 8px; }
+  .note {
+    background: #FFF8D6;
+    border-left: 4px solid var(--purple);
+    padding: 10px 12px;
+    font-size: 13.5px;
+    border-radius: 6px;
+    margin-bottom: 18px;
+  }
+  label {
+    display: block;
+    font-weight: 700;
+    color: var(--purple);
+    font-size: 14px;
+    margin: 16px 0 6px;
+  }
+  .hint { font-weight: 400; color: #6b6070; font-size: 12.5px; }
+  textarea, input[type=text], select {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1.5px solid #d9cbe6;
+    border-radius: 8px;
+    font-size: 15px;
+    font-family: inherit;
+    background: #fff;
+  }
+  textarea { min-height: 90px; resize: vertical; }
+  select { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath fill='%23490E6F' d='M5 7l5 5 5-5z'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 12px center; }
+  .traits {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+  .traits label {
+    font-weight: 400;
+    color: var(--text);
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 0;
+    padding: 9px 10px;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+  .traits input { accent-color: var(--purple); width: 16px; height: 16px; }
+  .traits label.freudenfreude { background: #231018; color: var(--gold); }
+  .traits label.hope { background: #FFE100; color: var(--text); }
+  .traits label.belonging { background: #D9D2E0; color: var(--text); }
+  .traits label.curiosity { background: var(--purple); color: #fff; }
+  button {
+    width: 100%;
+    margin-top: 22px;
+    padding: 13px;
+    background: var(--purple);
+    color: var(--gold);
+    border: none;
+    border-radius: 9px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+  }
+  button:disabled { opacity: 0.6; }
+  .footer {
+    text-align: center;
+    font-size: 12px;
+    color: #8a7c92;
+    padding: 4px 16px 20px;
+    font-style: italic;
+  }
+  #status {
+    display: none;
+    text-align: center;
+    padding: 30px 20px 34px;
+  }
+  #status h2 { color: var(--purple); margin-bottom: 6px; }
+  #status p { color: #4a4150; font-size: 14.5px; }
+  #status.error h2 { color: #a12; }
+</style>
+</head>
+<body>
+  <div class="card">
+    <div class="banner">
+      <div class="eyebrow">The Belay Line &middot; The Cairn</div>
+      <h1>Leave a Cairn</h1>
+      <div class="tag">Together We Climb</div>
+    </div>
+
+    <form id="cairnForm">
+      <div class="note">
+        A cairn is what climbers stack up to mark the trail for whoever's coming next. Shoutouts here can get read on the morning announcements.
+      </div>
+
+      <label>Who are you shouting out?</label>
+      <input type="text" id="who" required placeholder="First and last name">
+
+      <label>What did they do?</label>
+      <textarea id="what" required placeholder="Be specific — what did you actually see or hear?"></textarea>
+
+      <label>Which trait does this show?</label>
+      <div class="traits">
+        <label class="freudenfreude"><input type="radio" name="trait" value="Freudenfreude" required> Freudenfreude</label>
+        <label class="hope"><input type="radio" name="trait" value="Hope"> Hope</label>
+        <label class="belonging"><input type="radio" name="trait" value="Belonging"> Belonging</label>
+        <label class="curiosity"><input type="radio" name="trait" value="Curiosity"> Curiosity</label>
+      </div>
+
+      <label>Your grade</label>
+      <select id="grade" required>
+        <option value="" disabled selected>Select grade</option>
+        <option value="6">6th</option>
+        <option value="7">7th</option>
+        <option value="8">8th</option>
+      </select>
+
+      <label>Your squad</label>
+      <select id="squad" required>
+        <option value="" disabled selected>Select squad</option>
+        <option value="Black">Black</option>
+        <option value="Gold">Gold</option>
+        <option value="Grey">Grey</option>
+        <option value="Purple">Purple</option>
+      </select>
+
+      <label>Your 800# <span class="hint">(district student ID)</span></label>
+      <input type="text" id="studentId" required inputmode="numeric" pattern="[0-9]{6,10}" maxlength="10" placeholder="e.g. 8001234567">
+
+      <label>Your name <span class="hint">(optional)</span></label>
+      <input type="text" id="name" placeholder="Leave blank to stay anonymous">
+
+      <button type="submit" id="submitBtn">Leave the cairn</button>
+    </form>
+
+    <div id="status">
+      <h2 id="statusTitle">Cairn placed.</h2>
+      <p id="statusBody">Thanks for marking the trail for someone else.</p>
+    </div>
+
+    <div class="footer">Ephrata Middle School &middot; Mountaineer Peaks Pastoral Systems</div>
+  </div>
+
+<script>
+  // Paste the Web App URL from your Apps Script deployment here.
+  const SCRIPT_URL = "PASTE_YOUR_APPS_SCRIPT_WEB_APP_URL_HERE";
+
+  const form = document.getElementById("cairnForm");
+  const submitBtn = document.getElementById("submitBtn");
+  const statusBox = document.getElementById("status");
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    submitBtn.disabled = true;
+    submitBtn.textContent = "Sending...";
+
+    const traitInput = form.querySelector('input[name="trait"]:checked');
+    const payload = {
+      who: document.getElementById("who").value.trim(),
+      what: document.getElementById("what").value.trim(),
+      trait: traitInput ? traitInput.value : "",
+      grade: document.getElementById("grade").value,
+      squad: document.getElementById("squad").value,
+      studentId: document.getElementById("studentId").value.trim(),
+      name: document.getElementById("name").value.trim(),
+      submittedAt: new Date().toISOString()
+    };
+
+    try {
+      await fetch(SCRIPT_URL, {
+        method: "POST",
+        mode: "no-cors", // Apps Script web apps don't return CORS headers to fetch
+        headers: { "Content-Type": "text/plain;charset=utf-8" },
+        body: JSON.stringify(payload)
+      });
+      form.style.display = "none";
+      statusBox.style.display = "block";
+    } catch (err) {
+      statusBox.className = "error";
+      document.getElementById("statusTitle").textContent = "Something went wrong.";
+      document.getElementById("statusBody").textContent = "Please try again, or tell a staff member directly.";
+      statusBox.style.display = "block";
+      form.style.display = "none";
+    }
+  });
+</script>
+</body>
+</html>
