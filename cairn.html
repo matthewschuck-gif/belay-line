@@ -82,27 +82,29 @@
   textarea { min-height: 90px; resize: vertical; }
   select { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath fill='%23490E6F' d='M5 7l5 5 5-5z'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 12px center; }
   .traits {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+    display: flex;
+    flex-direction: column;
     gap: 8px;
   }
   .traits label {
-    font-weight: 400;
-    color: var(--text);
-    font-size: 14px;
     display: flex;
-    align-items: center;
-    gap: 8px;
+    flex-direction: column;
+    gap: 2px;
     margin: 0;
-    padding: 9px 10px;
+    padding: 9px 12px;
     border-radius: 8px;
     cursor: pointer;
+    background: #F5EEFA;
+    border: 1.5px solid #E4D7EF;
   }
-  .traits input { accent-color: var(--purple); width: 16px; height: 16px; }
-  .traits label.freudenfreude { background: #231018; color: var(--gold); }
-  .traits label.hope { background: #FFE100; color: var(--text); }
-  .traits label.belonging { background: #D9D2E0; color: var(--text); }
-  .traits label.curiosity { background: var(--purple); color: #fff; }
+  .traits label:has(input:checked) {
+    border-color: var(--purple);
+    background: #EDE0F5;
+  }
+  .traits .trait-row { display: flex; align-items: center; gap: 8px; }
+  .traits input { accent-color: var(--purple); width: 16px; height: 16px; flex-shrink: 0; }
+  .traits .trait-name { font-weight: 700; color: var(--purple); font-size: 14px; }
+  .traits .trait-desc { font-weight: 400; color: #6b6070; font-size: 12.5px; margin-left: 24px; }
   button {
     width: 100%;
     margin-top: 22px;
@@ -152,12 +154,24 @@
       <label>What did they do?</label>
       <textarea id="what" required placeholder="Be specific — what did you actually see or hear?"></textarea>
 
-      <label>Which trait does this show?</label>
+      <label>Which one fits best? <span class="hint">(pick what it felt like, not a specific word)</span></label>
       <div class="traits">
-        <label class="freudenfreude"><input type="radio" name="trait" value="Freudenfreude" required> Freudenfreude</label>
-        <label class="hope"><input type="radio" name="trait" value="Hope"> Hope</label>
-        <label class="belonging"><input type="radio" name="trait" value="Belonging"> Belonging</label>
-        <label class="curiosity"><input type="radio" name="trait" value="Curiosity"> Curiosity</label>
+        <label>
+          <div class="trait-row"><input type="radio" name="trait" value="Freudenfreude" required> <span class="trait-name">Freudenfreude</span></div>
+          <span class="trait-desc">celebrating someone else's win like it's your own</span>
+        </label>
+        <label>
+          <div class="trait-row"><input type="radio" name="trait" value="Hope"> <span class="trait-name">Hope</span></div>
+          <span class="trait-desc">helping someone believe things can get better</span>
+        </label>
+        <label>
+          <div class="trait-row"><input type="radio" name="trait" value="Belonging"> <span class="trait-name">Belonging</span></div>
+          <span class="trait-desc">making sure someone felt included</span>
+        </label>
+        <label>
+          <div class="trait-row"><input type="radio" name="trait" value="Curiosity"> <span class="trait-name">Curiosity</span></div>
+          <span class="trait-desc">genuinely caring what someone else thinks or feels</span>
+        </label>
       </div>
 
       <label>Your grade</label>

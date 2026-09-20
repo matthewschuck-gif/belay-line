@@ -69,15 +69,11 @@
     height: 0.5em;
     border-radius: 50%;
     flex-shrink: 0;
+    background: var(--gold);
   }
   .item .who { color: var(--gold); }
   .item .what { font-weight: 400; color: #EDE3F5; }
   .item .sep { color: rgba(255,255,255,0.25); }
-
-  .trait-Freudenfreude { background: #FFE100; }
-  .trait-Hope { background: #FFE100; }
-  .trait-Belonging { background: #D9D2E0; }
-  .trait-Curiosity { background: #B98BE0; }
 
   @keyframes scroll {
     from { transform: translateX(0); }
@@ -130,10 +126,9 @@
     }
 
     const pieces = items.map(function (it) {
-      const traitClass = "trait-" + String(it.trait || "").replace(/[^A-Za-z]/g, "");
       return (
         '<div class="item">' +
-        '<span class="trait-dot ' + traitClass + '"></span>' +
+        '<span class="trait-dot"></span>' +
         '<span class="who">' + esc(it.who || "Someone") + "</span>" +
         '<span class="what">' + esc(it.what || "") + "</span>" +
         '<span class="sep">&middot;&middot;&middot;</span>' +
