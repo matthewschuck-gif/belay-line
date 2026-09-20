@@ -138,11 +138,11 @@
     <div class="banner">
       <div class="eyebrow">The Belay Line &middot; The Cairn</div>
       <h1>Leave a Cairn</h1>
-      <div class="tag">Together We Climb</div>
+      <div class="tag" data-key="tagline" data-default="Together We Climb">Together We Climb</div>
     </div>
 
     <form id="cairnForm">
-      <div class="note">
+      <div class="note" data-key="cairnIntroNote" data-default="A cairn is what climbers stack up to mark the trail for whoever's coming next. Shoutouts here can get read on the morning announcements.">
         A cairn is what climbers stack up to mark the trail for whoever's coming next. Shoutouts here can get read on the morning announcements.
       </div>
 
@@ -197,6 +197,35 @@
 <script>
   // Paste the Web App URL from your Apps Script deployment here.
   const SCRIPT_URL = "PASTE_YOUR_APPS_SCRIPT_WEB_APP_URL_HERE";
+
+  // Pulls editable text from the "Belay Line Content" sheet tab (see
+  // getContent_() in CairnShoutout.gs) so staff can reword notices without
+  // a redeploy. Apps Script doesn't send CORS headers on GET, so this reads
+  // the response via JSONP (a <script> tag isn't subject to CORS) instead
+  // of fetch(). If the request fails or hasn't been deployed yet, the
+  // hardcoded text already in the HTML stays as-is.
+  (function loadContent() {
+    if (!SCRIPT_URL || SCRIPT_URL.indexOf("PASTE_YOUR") === 0) return;
+    const cb = "belayContent_" + Date.now();
+    window[cb] = function (data) {
+      applyContent((data && data.content) || {});
+      delete window[cb];
+      script.remove();
+    };
+    const script = document.createElement("script");
+    script.src = SCRIPT_URL + "?callback=" + cb;
+    script.onerror = () => delete window[cb];
+    document.body.appendChild(script);
+  })();
+
+  function applyContent(content) {
+    document.querySelectorAll("[data-key]").forEach((el) => {
+      const key = el.getAttribute("data-key");
+      const fallback = el.getAttribute("data-default");
+      const value = content[key];
+      if (value && value !== fallback) el.textContent = value;
+    });
+  }
 
   const form = document.getElementById("cairnForm");
   const submitBtn = document.getElementById("submitBtn");

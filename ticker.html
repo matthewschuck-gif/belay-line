@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Cairn — Ticker</title>
+<style>
+  :root {
+    --purple: #490E6F;
+    --gold: #FFE100;
+    --text: #231018;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0;
+    height: 100%;
+    background: var(--purple);
+    overflow: hidden;
+    font-family: -apple-system, "Segoe UI", Calibri, sans-serif;
+  }
+  .ticker-bar {
+    position: relative;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+  }
+  .label {
+    flex-shrink: 0;
+    background: var(--gold);
+    color: var(--purple);
+    font-weight: 800;
+    font-size: clamp(16px, 2.6vh, 28px);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    padding: 0 clamp(14px, 2vw, 32px);
+    height: 100%;
+    display: flex;
+    align-items: center;
+    z-index: 2;
+    box-shadow: 6px 0 16px rgba(0,0,0,0.15);
+  }
+  .track-wrap {
+    flex: 1;
+    height: 100%;
+    overflow: hidden;
+    position: relative;
+  }
+  .track {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    width: max-content;
+    will-change: transform;
+    animation: scroll linear infinite;
+  }
+  .item {
+    display: flex;
+    align-items: center;
+    gap: 0.6em;
+    padding: 0 clamp(24px, 4vw, 60px);
+    white-space: nowrap;
+    color: #fff;
+    font-size: clamp(18px, 3.2vh, 34px);
+    font-weight: 700;
+  }
+  .item .trait-dot {
+    width: 0.5em;
+    height: 0.5em;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .item .who { color: var(--gold); }
+  .item .what { font-weight: 400; color: #EDE3F5; }
+  .item .sep { color: rgba(255,255,255,0.25); }
+
+  .trait-Freudenfreude { background: #FFE100; }
+  .trait-Hope { background: #FFE100; }
+  .trait-Belonging { background: #D9D2E0; }
+  .trait-Curiosity { background: #B98BE0; }
+
+  @keyframes scroll {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+
+  .empty {
+    color: #EDE3F5;
+    font-size: clamp(16px, 2.6vh, 26px);
+    font-style: italic;
+    padding: 0 32px;
+    white-space: nowrap;
+  }
+</style>
+</head>
+<body>
+  <div class="ticker-bar">
+    <div class="label">The Cairn</div>
+    <div class="track-wrap">
+      <div class="track" id="track"></div>
+    </div>
+  </div>
+
+<script>
+  // Point this at the SAME Web App URL used in cairn-shoutout-form.html —
+  // this page only reads (doGet), it never writes.
+  const SCRIPT_URL = "PASTE_YOUR_CAIRN_APPS_SCRIPT_WEB_APP_URL_HERE";
+
+  const REFRESH_MS = 45000; // how often to re-poll for newly approved shoutouts
+  // Rough px/second the strip scrolls at — the animation duration is
+  // derived from content width so speed stays constant regardless of how
+  // many shoutouts are currently approved.
+  const PX_PER_SECOND = 70;
+
+  const track = document.getElementById("track");
+  let emptyMessage = "No shoutouts posted yet — check back soon.";
+
+  function esc(s) {
+    return String(s)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;");
+  }
+
+  function renderItems(items) {
+    if (!items || !items.length) {
+      track.style.animation = "none";
+      track.innerHTML = '<div class="empty">' + esc(emptyMessage) + "</div>";
+      return;
+    }
+
+    const pieces = items.map(function (it) {
+      const traitClass = "trait-" + String(it.trait || "").replace(/[^A-Za-z]/g, "");
+      return (
+        '<div class="item">' +
+        '<span class="trait-dot ' + traitClass + '"></span>' +
+        '<span class="who">' + esc(it.who || "Someone") + "</span>" +
+        '<span class="what">' + esc(it.what || "") + "</span>" +
+        '<span class="sep">&middot;&middot;&middot;</span>' +
+        "</div>"
+      );
+    });
+
+    // Duplicate the list back-to-back so translateX(-50%) loops seamlessly
+    // with no visible seam or jump.
+    track.innerHTML = pieces.join("") + pieces.join("");
+
+    requestAnimationFrame(function () {
+      const singleSetWidth = track.scrollWidth / 2;
+      const duration = Math.max(singleSetWidth / PX_PER_SECOND, 8);
+      track.style.animation = "none";
+      // Force reflow so the animation restarts cleanly with the new duration.
+      void track.offsetWidth;
+      track.style.animation = "scroll " + duration + "s linear infinite";
+    });
+  }
+
+  function loadTicker() {
+    if (!SCRIPT_URL || SCRIPT_URL.indexOf("PASTE_YOUR") === 0) {
+      renderItems([]);
+      return;
+    }
+    const cb = "cairnTicker_" + Date.now();
+    window[cb] = function (data) {
+      if (data && data.content && data.content.tickerEmptyMessage) {
+        emptyMessage = data.content.tickerEmptyMessage;
+      }
+      renderItems(data && data.approved);
+      delete window[cb];
+      script.remove();
+    };
+    const script = document.createElement("script");
+    script.src = SCRIPT_URL + "?callback=" + cb;
+    script.onerror = function () { delete window[cb]; };
+    document.body.appendChild(script);
+  }
+
+  loadTicker();
+  setInterval(loadTicker, REFRESH_MS);
+</script>
+</body>
+</html>
