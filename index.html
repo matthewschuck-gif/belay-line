@@ -46,15 +46,36 @@
   .banner .tag { font-style: italic; font-weight: 700; color: var(--gold); font-size: 13px; }
   .links { padding: 20px; display: flex; flex-direction: column; gap: 12px; }
   .link-card {
-    display: block;
+    display: flex;
+    align-items: center;
+    gap: 14px;
     text-decoration: none;
     color: inherit;
     border: 1.5px solid #d9cbe6;
     border-radius: 10px;
-    padding: 14px 16px;
+    padding: 12px 16px;
   }
+  .link-card .thumb {
+    width: 52px;
+    height: 52px;
+    border-radius: 10px;
+    object-fit: cover;
+    flex-shrink: 0;
+    border: 1px solid #E4D7EF;
+  }
+  .link-card .link-text { min-width: 0; }
   .link-card .name { font-weight: 700; color: var(--purple); font-size: 16px; }
   .link-card .desc { font-size: 13.5px; color: #4a4150; margin-top: 3px; }
+  .link-card .short-link {
+    font-size: 12.5px;
+    font-weight: 800;
+    color: var(--purple);
+    margin-top: 5px;
+    background: #F5EEFA;
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 999px;
+  }
   .footer {
     text-align: center;
     font-size: 12px;
@@ -73,31 +94,48 @@
     </div>
     <div class="links">
       <a class="link-card" href="cairn.html">
-        <div class="name">Leave a Cairn</div>
-        <div class="desc">Shout out a Mountaineer who showed up with heart.</div>
+        <img class="thumb" src="assets/cairn-badge.jpg" alt="">
+        <div class="link-text">
+          <div class="name">Leave a Cairn</div>
+          <div class="desc">Shout out a Mountaineer who showed up with heart.</div>
+          <div class="short-link">bit.ly/emscairn</div>
+        </div>
       </a>
       <a class="link-card" href="lookout.html">
-        <div class="name">The Lookout</div>
-        <div class="desc">Something not sitting right? Tell the pastoral team.</div>
+        <img class="thumb" src="assets/lookout-badge.jpg" alt="">
+        <div class="link-text">
+          <div class="name">The Lookout</div>
+          <div class="desc">Something not sitting right? Tell the pastoral team.</div>
+          <div class="short-link">bit.ly/emslookout</div>
+        </div>
       </a>
       <a class="link-card" href="simulator.html">
-        <div class="name">Scenario Trainer</div>
-        <div class="desc">Five quick scenes — practice picking a D.</div>
+        <div class="link-text">
+          <div class="name">Scenario Trainer</div>
+          <div class="desc">Five quick scenes — practice picking a D.</div>
+          <div class="short-link">bit.ly/emsscenarios</div>
+        </div>
       </a>
       <a class="link-card" href="poster.html">
-        <div class="name">Poster</div>
-        <div class="desc">Printable Shout It / Flag It poster.</div>
+        <div class="link-text">
+          <div class="name">Poster</div>
+          <div class="desc">Printable Shout It / Flag It poster.</div>
+        </div>
       </a>
       <a class="link-card" href="onepager.html">
-        <div class="name">4 D's One-Pager</div>
-        <div class="desc">Printable duty-staff reference card.</div>
+        <div class="link-text">
+          <div class="name">4 D's One-Pager</div>
+          <div class="desc">Printable duty-staff reference card.</div>
+        </div>
       </a>
       <a class="link-card" href="ticker.html">
-        <div class="name">Cairn Ticker</div>
-        <div class="desc">Scrolling display of admin-approved shoutouts.</div>
+        <div class="link-text">
+          <div class="name">Cairn Ticker</div>
+          <div class="desc">Scrolling display of admin-approved shoutouts.</div>
+        </div>
       </a>
     </div>
-    <div class="footer">Ephrata Middle School &middot; Mountaineer Peaks Pastoral Systems</div>
+    <div class="footer">Ephrata Middle School &middot; Mountaineer Peaks Pastoral Systems<br>bit.ly/emsbelayline</div>
   </div>
 </body>
 </html>
