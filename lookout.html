@@ -165,6 +165,9 @@
       <label>Your name <span class="hint">(totally optional)</span></label>
       <input type="text" id="name" placeholder="Leave blank to stay anonymous">
 
+      <label>Your 800# <span class="hint">(totally optional — only used to give your squad credit)</span></label>
+      <input type="text" id="studentId" inputmode="numeric" pattern="[0-9]{6,10}" maxlength="10" placeholder="Leave blank to stay anonymous">
+
       <button type="submit" id="submitBtn">Send it</button>
     </form>
 
@@ -227,6 +230,7 @@
       when: document.getElementById("when").value.trim(),
       dTried: dTried.join(", "),
       name: document.getElementById("name").value.trim(),
+      studentId: document.getElementById("studentId").value.trim(),
       submittedAt: new Date().toISOString()
     };
 

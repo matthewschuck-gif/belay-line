@@ -182,16 +182,7 @@
         <option value="8">8th</option>
       </select>
 
-      <label>Your squad</label>
-      <select id="squad" required>
-        <option value="" disabled selected>Select squad</option>
-        <option value="Black">Black</option>
-        <option value="Gold">Gold</option>
-        <option value="Grey">Grey</option>
-        <option value="Purple">Purple</option>
-      </select>
-
-      <label>Your 800# <span class="hint">(district student ID)</span></label>
+      <label>Your 800# <span class="hint">(district student ID — this is how your squad gets credit)</span></label>
       <input type="text" id="studentId" required inputmode="numeric" pattern="[0-9]{6,10}" maxlength="10" placeholder="e.g. 8001234567">
 
       <label>Your name <span class="hint">(optional)</span></label>
@@ -256,7 +247,6 @@
       what: document.getElementById("what").value.trim(),
       trait: traitInput ? traitInput.value : "",
       grade: document.getElementById("grade").value,
-      squad: document.getElementById("squad").value,
       studentId: document.getElementById("studentId").value.trim(),
       name: document.getElementById("name").value.trim(),
       submittedAt: new Date().toISOString()
