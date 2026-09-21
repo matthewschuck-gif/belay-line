@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Method of Shared Concern — Pastoral Reference</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Karla:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --purple: #490E6F;
+    --gold: #FFE100;
+    --text: #231018;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: #F5EEFA;
+    display: flex;
+    justify-content: center;
+    padding: 24px 0;
+    font-family: 'Karla', -apple-system, "Segoe UI", sans-serif;
+  }
+  .display { font-family: 'Anton', sans-serif; letter-spacing: 0.01em; }
+  @media print {
+    body { padding: 0; background: #fff; }
+    .card { box-shadow: none !important; }
+  }
+
+  .card {
+    width: 816px;
+    min-height: 528px;
+    background: #fff;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 24px rgba(73,14,111,0.18);
+  }
+
+  .band {
+    background: var(--purple);
+    padding: 20px 40px 16px;
+    text-align: center;
+  }
+  .band .display {
+    color: #fff;
+    font-size: 28px;
+    line-height: 1.05;
+  }
+  .band .display span { color: var(--gold); }
+  .band .sub {
+    color: var(--gold);
+    font-style: italic;
+    font-weight: 700;
+    font-size: 13px;
+    margin-top: 6px;
+  }
+
+  .stages { padding: 18px 32px 4px; }
+  .stage { display: flex; gap: 16px; padding: 12px 0; border-bottom: 1px solid #E6DBEF; }
+  .stage:last-child { border-bottom: none; }
+  .badge {
+    flex-shrink: 0;
+    width: 30px; height: 30px;
+    border-radius: 50%;
+    background: var(--purple);
+    color: var(--gold);
+    font-family: 'Anton', sans-serif;
+    font-size: 15px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .stage-title {
+    font-family: 'Anton', sans-serif;
+    color: var(--purple);
+    font-size: 15.5px;
+    letter-spacing: 0.01em;
+  }
+  .stage-meta {
+    font-size: 10.5px;
+    font-weight: 800;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: #8a7c92;
+    margin: 2px 0 5px;
+  }
+  .stage-body { font-size: 13px; line-height: 1.45; color: var(--text); }
+  .stage-body strong { color: var(--purple); }
+
+  .note {
+    margin: 12px 32px 0;
+    background: #F5EEFA;
+    border-left: 4px solid var(--purple);
+    border-radius: 8px;
+    padding: 12px 16px;
+  }
+  .note .note-label {
+    font-weight: 800;
+    color: var(--purple);
+    font-size: 10.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 4px;
+  }
+  .note p { margin: 0; font-size: 12.5px; line-height: 1.45; color: var(--text); }
+
+  .bottom-band {
+    margin-top: 16px;
+    background: var(--purple);
+    padding: 11px 24px;
+    text-align: center;
+    font-size: 11.5px;
+    color: #C9B6DC;
+    letter-spacing: 0.02em;
+  }
+</style>
+</head>
+<body>
+  <div class="card">
+    <div class="band">
+      <div class="display">THE METHOD OF SHARED CONCERN &middot; <span>THE BELAY LINE</span></div>
+      <div class="sub">Pikas &amp; Rigby &mdash; for covert group bullying &amp; exclusion. Sidesteps accusation and defensiveness.</div>
+    </div>
+
+    <div class="stages">
+      <div class="stage">
+        <div class="badge">1</div>
+        <div>
+          <div class="stage-title">Low-Stakes 1-on-1 Exploratory Interviews</div>
+          <div class="stage-meta">5&ndash;7 min &middot; private &middot; every bystander + participant, individually</div>
+          <div class="stage-body">Avoid &ldquo;Did you do it?&rdquo; Open with objective care: <strong>&ldquo;I noticed Alex has seemed isolated and down lately. Have you noticed that?&rdquo;</strong> Once the student acknowledges the target&rsquo;s state, secure a personal commitment: <strong>&ldquo;What&rsquo;s one small, realistic thing you can do this week to help Alex feel less isolated?&rdquo;</strong></div>
+        </div>
+      </div>
+      <div class="stage">
+        <div class="badge">2</div>
+        <div>
+          <div class="stage-title">Target Support &amp; Action Monitoring</div>
+          <div class="stage-meta">ongoing &middot; 1-on-1 with target + brief follow-ups with group</div>
+          <div class="stage-body">Check in with the targeted student to confirm safety and whether peer commitments are actually materializing, alongside brief follow-ups with each group member on their commitment.</div>
+        </div>
+      </div>
+      <div class="stage">
+        <div class="badge">3</div>
+        <div>
+          <div class="stage-title">The Group Summit</div>
+          <div class="stage-meta">once commitments have taken root &middot; full group session</div>
+          <div class="stage-body">The group meets to formally establish shared responsibility for an inclusive environment. At EMS, this is the existing <strong>Trailback Panel</strong> process (Wednesdays during PASS) &mdash; no new infrastructure needed.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="note">
+      <div class="note-label">Sequencing &mdash; a facilitator decision, not yet standardized</div>
+      <p>Pikas&rsquo;s original sequence opens Stage 1 with the <strong>presumed ringleader</strong> &mdash; once the most influential member commits, the rest tend to follow. Starting with the <strong>most socially secure student</strong> instead trades a harder first conversation for an easier momentum-builder. Both are documented practice (Rigby) &mdash; worth EMS picking one and standardizing across Trailback Panel facilitators rather than deciding case by case.</p>
+    </div>
+
+    <div class="bottom-band">Ephrata Middle School &middot; Pastoral team / Trailback Panel reference &middot; print &amp; keep at desk</div>
+  </div>
+</body>
+</html>

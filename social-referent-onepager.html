@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Social Referent Seeding — Pastoral Reference</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Karla:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --purple: #490E6F;
+    --gold: #FFE100;
+    --text: #231018;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: #F5EEFA;
+    display: flex;
+    justify-content: center;
+    padding: 24px 0;
+    font-family: 'Karla', -apple-system, "Segoe UI", sans-serif;
+  }
+  .display { font-family: 'Anton', sans-serif; letter-spacing: 0.01em; }
+  @media print {
+    body { padding: 0; background: #fff; }
+    .card { box-shadow: none !important; }
+  }
+
+  .card {
+    width: 816px;
+    min-height: 528px;
+    background: #fff;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 24px rgba(73,14,111,0.18);
+  }
+
+  .band {
+    background: var(--purple);
+    padding: 20px 40px 16px;
+    text-align: center;
+  }
+  .band .display {
+    color: #fff;
+    font-size: 28px;
+    line-height: 1.05;
+  }
+  .band .display span { color: var(--gold); }
+  .band .sub {
+    color: var(--gold);
+    font-style: italic;
+    font-weight: 700;
+    font-size: 13px;
+    margin-top: 6px;
+  }
+
+  .stages { padding: 18px 32px 4px; }
+  .stage { display: flex; gap: 16px; padding: 12px 0; border-bottom: 1px solid #E6DBEF; }
+  .stage:last-child { border-bottom: none; }
+  .badge {
+    flex-shrink: 0;
+    width: 30px; height: 30px;
+    border-radius: 50%;
+    background: var(--purple);
+    color: var(--gold);
+    font-family: 'Anton', sans-serif;
+    font-size: 15px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .stage-title {
+    font-family: 'Anton', sans-serif;
+    color: var(--purple);
+    font-size: 15.5px;
+    letter-spacing: 0.01em;
+  }
+  .stage-meta {
+    font-size: 10.5px;
+    font-weight: 800;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: #8a7c92;
+    margin: 2px 0 5px;
+  }
+  .stage-body { font-size: 13px; line-height: 1.45; color: var(--text); }
+  .stage-body strong { color: var(--purple); }
+
+  .note {
+    margin: 12px 32px 0;
+    background: #F5EEFA;
+    border-left: 4px solid var(--purple);
+    border-radius: 8px;
+    padding: 12px 16px;
+  }
+  .note .note-label {
+    font-weight: 800;
+    color: var(--purple);
+    font-size: 10.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 4px;
+  }
+  .note p { margin: 0 0 8px; font-size: 12.5px; line-height: 1.45; color: var(--text); }
+  .note p:last-child { margin-bottom: 0; }
+
+  .bottom-band {
+    margin-top: 16px;
+    background: var(--purple);
+    padding: 11px 24px;
+    text-align: center;
+    font-size: 11.5px;
+    color: #C9B6DC;
+    letter-spacing: 0.02em;
+  }
+</style>
+</head>
+<body>
+  <div class="card">
+    <div class="band">
+      <div class="display">SOCIAL REFERENT SEEDING &middot; <span>THE BELAY LINE</span></div>
+      <div class="sub">Paluck Model &mdash; adolescent norms are set by informal peer influencers, not appointed leaders.</div>
+    </div>
+
+    <div class="stages">
+      <div class="stage">
+        <div class="badge">1</div>
+        <div>
+          <div class="stage-title">Identification via Network Mapping</div>
+          <div class="stage-meta">short peer survey &middot; every subculture, not just top students</div>
+          <div class="stage-body">Instead of selecting top academic or student-council leaders, a short peer survey identifies <strong>high-degree social nodes</strong> across every subculture &mdash; including students frequently linked to minor behavioral friction.</div>
+        </div>
+      </div>
+      <div class="stage">
+        <div class="badge">2</div>
+        <div>
+          <div class="stage-title">Grassroots Co-Design</div>
+          <div class="stage-meta">cross-clique cohorts</div>
+          <div class="stage-body">Referents are brought together in cross-clique cohorts to design public interventions, establish micro-rituals, and normalize speaking out against harassment.</div>
+        </div>
+      </div>
+      <div class="stage">
+        <div class="badge">3</div>
+        <div>
+          <div class="stage-title">Overcoming Pluralistic Ignorance</div>
+          <div class="stage-meta">visible peer modeling</div>
+          <div class="stage-body">When influential peers visibly model upstander behavior, the perceived social cost of intervening drops across the whole student body.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="note">
+      <div class="note-label">The evidence &mdash; and where it already meets EMS</div>
+      <p>Paluck, Shepherd &amp; Aronow (2016, PNAS) ran this exact model across <strong>56 New Jersey middle schools and 24,191 students</strong>: randomly selected seed groups of 20&ndash;32 students publicly took a stance against everyday conflict. Disciplinary reports fell <strong>30% over one year</strong> &mdash; and the effect grew larger when the seed group had more high-network-centrality &ldquo;social referents&rdquo; rather than officially appointed leaders.</p>
+      <p>EMS already has the seed-group infrastructure: the <strong>Mountaineer Leadership Corps</strong> (Generals, Captains, Ambassadors, Delegates, Vanguard, Scouts, Stewards) spans exactly these cross-clique, high-visibility roles. A short, anonymous peer-nomination survey (&ldquo;who would you go to if&hellip;&rdquo;) could surface additional referents outside the Corps roster who carry more day-to-day social weight than a title predicts.</p>
+    </div>
+
+    <div class="bottom-band">Ephrata Middle School &middot; Pastoral team reference &middot; print &amp; keep at desk</div>
+  </div>
+</body>
+</html>
