@@ -114,6 +114,15 @@
     letter-spacing: 0.04em;
     margin-bottom: 6px;
   }
+  .why-text {
+    font-size: 13px;
+    font-style: italic;
+    color: #6b5c73;
+    margin: 10px 0 0;
+    padding-top: 10px;
+    border-top: 1px solid #e6dbef;
+    line-height: 1.5;
+  }
 
   .primary-btn, .next-btn {
     width: 100%;
@@ -171,6 +180,7 @@
       <div class="outcome-box">
         <div class="picked" id="pickedLabel"></div>
         <p class="text" id="outcomeText"></p>
+        <p class="why-text" id="whyText"></p>
       </div>
       <button class="next-btn" id="nextBtn" onclick="nextScenario()">Next scene</button>
     </div>
@@ -178,6 +188,7 @@
     <div id="screen-end" class="hidden">
       <p><strong>That's all nine.</strong> Here's what you picked:</p>
       <div id="summaryList"></div>
+      <p>Researchers call the freeze-up <strong>moral disengagement</strong> &mdash; a group quietly talking itself into "it's not a big deal," "someone else will handle it," or "they kind of had it coming." Every D above interrupts that in a different spot. That's why there's no wrong one to reach for.</p>
       <p class="secondary-note">It doesn't matter which D you reach for &mdash; it matters that you reach for one.</p>
       <button class="primary-btn" onclick="restart()">Run it again</button>
     </div>
@@ -279,6 +290,13 @@ const SCENARIOS = [
   }
 ];
 
+const WHY = {
+  Direct: "Why it works: a pile-on runs on everyone assuming everyone else is fine with it. One flat, calm line out loud replaces that assumption with an actual boundary — which is usually all it takes.",
+  Distract: "Why it works: the hold-up usually isn't knowing what to do, it's not wanting to be the one who makes it a confrontation. Distract gets the target clear or the moment past without anyone having to publicly back down.",
+  Delegate: "Why it works: in a group, everyone half-assumes someone else will step in — and so nobody does. Routing it to an adult system directly breaks that and makes sure a pattern actually gets tracked, not just today's incident.",
+  Delay: "Why it works: it doesn't undo what already happened, but it tells the person it registered and that it wasn't okay — which research keeps finding matters almost as much as stopping the moment itself."
+};
+
 let current = 0;
 const picks = [];
 
@@ -328,6 +346,7 @@ function pickChoice(idx) {
   document.getElementById("screen-outcome").classList.remove("hidden");
   document.getElementById("pickedLabel").textContent = "You chose: " + choice.d;
   document.getElementById("outcomeText").textContent = choice.outcome;
+  document.getElementById("whyText").textContent = WHY[choice.d];
   renderProgress("progressBarOutcome");
 
   document.getElementById("nextBtn").textContent = (current === SCENARIOS.length - 1) ? "See summary" : "Next scene";
