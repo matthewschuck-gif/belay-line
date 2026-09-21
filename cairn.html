@@ -230,8 +230,17 @@
       <label>Your 800# <span class="hint">(district student ID — this is how your squad gets credit)</span></label>
       <input type="text" id="studentId" required inputmode="numeric" pattern="[0-9]{6,10}" maxlength="10" placeholder="e.g. 8001234567">
 
+      <label>Your squad <span class="hint">(fills in from your 800# above)</span></label>
+      <select id="squad">
+        <option value="" selected>Enter your 800# first</option>
+        <option value="Black">Black</option>
+        <option value="Gold">Gold</option>
+        <option value="Grey">Grey</option>
+        <option value="Purple">Purple</option>
+      </select>
+
       <label>Your name <span class="hint">(optional)</span></label>
-      <input type="text" id="name" placeholder="Leave blank to stay anonymous">
+      <input type="text" id="name" placeholder="e.g. Jordan M.">
 
       <button type="submit" id="submitBtn">Leave the cairn</button>
     </form>
@@ -275,6 +284,40 @@
       const value = content[key];
       if (value && value !== fallback) el.textContent = value;
     });
+  }
+
+  // Auto-fills the squad dropdown from the 800# so a student can see (and
+  // double-check) their squad before submitting. This is DISPLAY ONLY —
+  // the dropdown's value is never read or sent on submit (see below), so
+  // there's nothing for a student to gain by picking a different squad
+  // here. The actual squad/points always come from the server-side roster
+  // lookup by 800#, same as before.
+  const studentIdInput = document.getElementById("studentId");
+  const squadSelect = document.getElementById("squad");
+  let squadLookupTimer = null;
+
+  studentIdInput.addEventListener("input", () => {
+    clearTimeout(squadLookupTimer);
+    const id = studentIdInput.value.trim();
+    if (!/^[0-9]{6,10}$/.test(id)) {
+      squadSelect.value = "";
+      return;
+    }
+    squadLookupTimer = setTimeout(() => lookupSquad(id), 400);
+  });
+
+  function lookupSquad(id) {
+    if (!SCRIPT_URL || SCRIPT_URL.indexOf("PASTE_YOUR") === 0) return;
+    const cb = "belaySquad_" + Date.now();
+    window[cb] = function (data) {
+      squadSelect.value = (data && data.squad) || "";
+      delete window[cb];
+      script.remove();
+    };
+    const script = document.createElement("script");
+    script.src = SCRIPT_URL + "?lookupSquad=" + encodeURIComponent(id) + "&callback=" + cb;
+    script.onerror = () => delete window[cb];
+    document.body.appendChild(script);
   }
 
   const form = document.getElementById("cairnForm");
