@@ -81,23 +81,35 @@
   }
   textarea { min-height: 90px; resize: vertical; }
   .checks {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+    display: flex;
+    flex-direction: column;
     gap: 8px;
   }
   .checks label {
-    font-weight: 400;
-    color: var(--text);
-    font-size: 14px;
     display: flex;
-    align-items: center;
-    gap: 8px;
+    flex-direction: column;
+    gap: 2px;
     margin: 0;
-    background: #F5EEFA;
-    padding: 8px 10px;
+    padding: 9px 12px;
     border-radius: 8px;
+    cursor: pointer;
+    background: #F5EEFA;
+    border: 1.5px solid #E4D7EF;
   }
-  .checks input { accent-color: var(--purple); width: 16px; height: 16px; }
+  .checks label:has(input:checked) {
+    border-color: var(--purple);
+    background: #EDE0F5;
+  }
+  .checks .check-row { display: flex; align-items: center; gap: 8px; }
+  .checks input { accent-color: var(--purple); width: 16px; height: 16px; flex-shrink: 0; }
+  .checks .d-name { font-weight: 700; color: var(--purple); font-size: 14px; }
+  .checks .d-desc { font-weight: 400; color: #6b6070; font-size: 12.5px; margin-left: 24px; }
+  .checks input[type=text] {
+    margin: 6px 0 0 24px;
+    width: calc(100% - 24px);
+    padding: 7px 10px;
+    font-size: 13.5px;
+  }
   button {
     width: 100%;
     margin-top: 22px;
@@ -154,12 +166,29 @@
       <label>When? <span class="hint">(optional)</span></label>
       <input type="text" id="when" placeholder="e.g. today at lunch, this week">
 
-      <label>Have you already tried one of the 4 D's? <span class="hint">(check any that apply)</span></label>
+      <label>What has been tried? <span class="hint">(check any that apply)</span></label>
       <div class="checks">
-        <label><input type="checkbox" name="d" value="Direct"> Direct</label>
-        <label><input type="checkbox" name="d" value="Distract"> Distract</label>
-        <label><input type="checkbox" name="d" value="Delegate"> Delegate (this)</label>
-        <label><input type="checkbox" name="d" value="Delay"> Delay</label>
+        <label>
+          <div class="check-row"><input type="checkbox" name="d" value="Direct"> <span class="d-name">Direct</span></div>
+          <span class="d-desc">said something directly, like "that's not okay"</span>
+        </label>
+        <label>
+          <div class="check-row"><input type="checkbox" name="d" value="Distract"> <span class="d-name">Distract</span></div>
+          <span class="d-desc">changed the subject or pulled them away from it</span>
+        </label>
+        <label>
+          <div class="check-row"><input type="checkbox" name="d" value="Delegate"> <span class="d-name">Delegate</span></div>
+          <span class="d-desc">told a staff member — you're doing that right now</span>
+        </label>
+        <label>
+          <div class="check-row"><input type="checkbox" name="d" value="Delay"> <span class="d-name">Delay</span></div>
+          <span class="d-desc">checked in with them afterward</span>
+        </label>
+        <label>
+          <div class="check-row"><input type="checkbox" name="d" value="Other" id="dOtherCheck"> <span class="d-name">Other</span></div>
+          <span class="d-desc">something else — tell us what</span>
+          <input type="text" id="dOtherText" placeholder="What else did you try?" style="display:none;">
+        </label>
       </div>
 
       <label>Your name <span class="hint">(totally optional)</span></label>
@@ -217,13 +246,25 @@
   const form = document.getElementById("tipForm");
   const submitBtn = document.getElementById("submitBtn");
   const statusBox = document.getElementById("status");
+  const dOtherCheck = document.getElementById("dOtherCheck");
+  const dOtherText = document.getElementById("dOtherText");
+
+  dOtherCheck.addEventListener("change", () => {
+    dOtherText.style.display = dOtherCheck.checked ? "block" : "none";
+    if (dOtherCheck.checked) dOtherText.focus();
+    else dOtherText.value = "";
+  });
 
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
     submitBtn.disabled = true;
     submitBtn.textContent = "Sending...";
 
-    const dTried = Array.from(form.querySelectorAll('input[name="d"]:checked')).map(cb => cb.value);
+    const dTried = Array.from(form.querySelectorAll('input[name="d"]:checked')).map(cb => {
+      if (cb.value !== "Other") return cb.value;
+      const other = dOtherText.value.trim();
+      return other ? "Other: " + other : "Other";
+    });
     const payload = {
       what: document.getElementById("what").value.trim(),
       where: document.getElementById("where").value.trim(),
