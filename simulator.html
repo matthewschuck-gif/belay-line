@@ -155,7 +155,7 @@
   <div class="card">
 
     <div id="screen-start">
-      <p>Five quick scenes. Each one, you pick a D &mdash; Direct, Distract, Delegate, or Delay &mdash; and see how it plays out. There's no single right answer; the point is picking one and knowing what it actually looks like.</p>
+      <p>Nine quick scenes. Each one, you pick a D &mdash; Direct, Distract, Delegate, or Delay &mdash; and see how it plays out. There's no single right answer; the point is picking one and knowing what it actually looks like.</p>
       <button class="primary-btn" onclick="startTrainer()">Start</button>
     </div>
 
@@ -176,7 +176,7 @@
     </div>
 
     <div id="screen-end" class="hidden">
-      <p><strong>That's all five.</strong> Here's what you picked:</p>
+      <p><strong>That's all nine.</strong> Here's what you picked:</p>
       <div id="summaryList"></div>
       <p class="secondary-note">It doesn't matter which D you reach for &mdash; it matters that you reach for one.</p>
       <button class="primary-btn" onclick="restart()">Run it again</button>
@@ -188,7 +188,7 @@
 <script>
 const SCENARIOS = [
   {
-    label: "Scene 1 of 5 \u2014 The Group Chat",
+    label: "Scene 1 of 9 \u2014 The Group Chat",
     text: "You're in a class group chat. A few kids start making fun of a photo someone posted, piling on with jokes. It's escalating fast.",
     choices: [
       { d: "Direct", action: "Post: \u201COkay that's enough, this isn't cool.\u201D", outcome: "The jokes stop within a message or two \u2014 someone saying it plainly, in the chat, in real time, usually kills the pile-on before it snowballs further. It can feel exposed to be the one who says it, but a flat, calm line does more than an argument would." },
@@ -198,7 +198,7 @@ const SCENARIOS = [
     ]
   },
   {
-    label: "Scene 2 of 5 \u2014 The Cafeteria Table",
+    label: "Scene 2 of 9 \u2014 The Cafeteria Table",
     text: "A kid sits down at your lunch table. The group around you scoots down, laughing, and won't make room \u2014 basically pushing them back out.",
     choices: [
       { d: "Direct", action: "Say: \u201CThere's room, come sit.\u201D and make space.", outcome: "It's a small, physical action that undoes the exclusion instantly \u2014 no confrontation needed, no accusation made. This is Direct at its lowest-cost: you're not calling anyone out, just refusing to go along with it." },
@@ -208,7 +208,7 @@ const SCENARIOS = [
     ]
   },
   {
-    label: "Scene 3 of 5 \u2014 The Hallway",
+    label: "Scene 3 of 9 \u2014 The Hallway",
     text: "You see a kid trip in the hallway. A few kids nearby start calling him \u201Cclumsy\u201D and won't let it go, repeating it every time they pass him for the rest of the day.",
     choices: [
       { d: "Direct", action: "Say: \u201CAlright, that's enough, he gets it.\u201D", outcome: "Naming it out loud, calmly, usually ends a pile-on faster than ignoring it does \u2014 group teasing runs on momentum, and a flat statement takes the air out of it." },
@@ -218,7 +218,7 @@ const SCENARIOS = [
     ]
   },
   {
-    label: "Scene 4 of 5 \u2014 Picking Teams",
+    label: "Scene 4 of 9 \u2014 Picking Teams",
     text: "In gym class, team captains are picking players. One kid keeps getting skipped over, and the group is muttering and rolling their eyes every time his name comes up.",
     choices: [
       { d: "Direct", action: "As captain, pick him early and say why: \u201Che's solid, I want him.\u201D", outcome: "This one's the cleanest fix available \u2014 if you have any pick at all, using it removes the exclusion entirely instead of just softening it." },
@@ -228,13 +228,53 @@ const SCENARIOS = [
     ]
   },
   {
-    label: "Scene 5 of 5 \u2014 The Screenshot",
+    label: "Scene 5 of 9 \u2014 The Screenshot",
     text: "Someone forwards an embarrassing screenshot of a classmate into a group chat you're in, and people start laughing and adding comments.",
     choices: [
       { d: "Direct", action: "Post: \u201Cnot cool, delete that.\u201D", outcome: "Naming it plainly, in the moment, is often what actually gets a screenshot pulled down or the thread to stop \u2014 silence reads as agreement, and one clear voice breaks that." },
       { d: "Distract", action: "Don't engage with the screenshot at all \u2014 send something else to bump it down and move the conversation on.", outcome: "You haven't called anyone out, but you've stopped adding fuel, and a chat moves on fast when nobody keeps feeding a thread." },
       { d: "Delegate", action: "Report the message in the app, and mention it to a trusted adult too.", outcome: "This is the one that actually gets a screenshot taken down for good and gets ahead of it spreading further \u2014 platforms and adults can do things you can't from inside the chat." },
       { d: "Delay", action: "Message the person privately: \u201Cthat was going around, I'm sorry, that's not okay.\u201D", outcome: "The screenshot is already out there, but the person finds out someone in that chat didn't think it was funny \u2014 which matters a lot when it feels like everyone did." }
+    ]
+  },
+  {
+    label: "Scene 6 of 9 \u2014 The Locker Room",
+    text: "In the locker room before gym, a couple of guys won't stop making comments about what someone's wearing to change into, even after he's asked them to knock it off.",
+    choices: [
+      { d: "Direct", action: "Say, \u201CAlright, that's enough, drop it.\u201D", outcome: "Locker rooms run on the same pile-on momentum as anywhere else \u2014 one flat statement from someone who isn't the target usually breaks it faster than the target asking them to stop ever could." },
+      { d: "Distract", action: "Loudly ask something unrelated \u2014 \u201Cyo, is the pacer test today or Thursday?\u201D \u2014 to pull the room's attention somewhere else.", outcome: "It's not a callout, so nobody has to back down in front of everyone, and the comments usually just don't pick back up once the subject's changed." },
+      { d: "Delegate", action: "Mention it to the PE teacher after class, since it's the same thing every day, not a one-off.", outcome: "Locker rooms are hard for staff to actually see into \u2014 a mention after the fact is often the only way an adult finds out it's a pattern at all." },
+      { d: "Delay", action: "Catch him on the way out: \u201Cthat was messed up, ignore those guys.\u201D", outcome: "The moment already happened by the time you catch up with him, but knowing someone noticed \u2014 and didn't think it was funny \u2014 changes how it sits with him." }
+    ]
+  },
+  {
+    label: "Scene 7 of 9 \u2014 The Group Project",
+    text: "Your group is dividing up a project. Every time one member tries to suggest something, someone else talks over her and gives her the leftover part without really asking.",
+    choices: [
+      { d: "Direct", action: "Say, \u201Cwait, let her actually pick a part.\u201D", outcome: "Naming it out loud resets the conversation \u2014 it's hard for the group to keep talking over her once someone's said the quiet part plainly." },
+      { d: "Distract", action: "Turn and ask her directly, \u201Cwhat part do you actually want?\u201D before anyone else can answer for her.", outcome: "Asking her directly does the same job as calling the group out, without turning it into a confrontation \u2014 she gets a real say either way." },
+      { d: "Delegate", action: "Mention to the teacher that the group work isn't getting split evenly.", outcome: "A teacher who knows can watch how the next group divides work, which matters more than fixing just this one project." },
+      { d: "Delay", action: "Tell her after class that you thought her idea was actually good.", outcome: "It doesn't change what happened in the group, but hearing that someone thought her idea was good is worth more than it sounds, especially right after being talked over." }
+    ]
+  },
+  {
+    label: "Scene 8 of 9 \u2014 The Bus",
+    text: "A kid gets on the bus and every seat \u201Chas someone in it\u201D by the time he reaches it \u2014 obviously on purpose, and it's not the first time.",
+    choices: [
+      { d: "Direct", action: "Say, \u201Cthere's room, sit here,\u201D and move your bag.", outcome: "A seat and a beat of eye contact ends the moment faster than anything said afterward could \u2014 it's Direct at its simplest, no confrontation needed." },
+      { d: "Distract", action: "Start talking to him about something random as soon as he's near, so the standing-in-the-aisle moment doesn't drag on.", outcome: "Talking to him the second he's near skips the awkward standing-in-the-aisle moment entirely, and nobody has to admit out loud what was happening." },
+      { d: "Delegate", action: "Mention it to the bus driver since it's been happening for weeks.", outcome: "Bus drivers can't always see what's happening seat-to-seat \u2014 a heads-up from a rider is often the only way this pattern gets noticed and addressed." },
+      { d: "Delay", action: "Catch him getting off the bus and say something.", outcome: "It's a small thing, but a kid who's just been passed over five seats in a row remembers who said something after, not just who didn't." }
+    ]
+  },
+  {
+    label: "Scene 9 of 9 \u2014 The New Kid",
+    text: "A new student is eating alone at lunch again \u2014 the third day in a row \u2014 while everyone else sits with their usual people.",
+    choices: [
+      { d: "Direct", action: "Walk over and say, \u201Ccome sit with us.\u201D", outcome: "It costs you almost nothing and solves his whole lunch period \u2014 Direct doesn't get much lower-stakes than an open seat and four words." },
+      { d: "Distract", action: "Ask if you can borrow something from him on your way to your table, then just keep walking together.", outcome: "It gets him moving toward people without making the invitation feel like a big, formal thing \u2014 useful if a flat-out invite feels like more attention than either of you wants." },
+      { d: "Delegate", action: "Mention to a counselor that a new student's been sitting alone all week.", outcome: "Three days alone is exactly the kind of early pattern counselors want to catch before it becomes a routine nobody thinks to fix." },
+      { d: "Delay", action: "Catch him after lunch to actually introduce yourself, even though you didn't invite him today.", outcome: "It's not the same as an invite at the moment, but a kid who's new and alone remembers who bothered to say hi at all, even a day late." }
     ]
   }
 ];
