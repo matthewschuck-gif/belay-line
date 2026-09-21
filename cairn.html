@@ -105,6 +105,18 @@
   .traits input { accent-color: var(--purple); width: 16px; height: 16px; flex-shrink: 0; }
   .traits .trait-name { font-weight: 700; color: var(--purple); font-size: 14px; }
   .traits .trait-desc { font-weight: 400; color: #6b6070; font-size: 12.5px; margin-left: 24px; }
+  .traits .trait-cat { font-weight: 400; color: #9c8aad; font-size: 11px; margin-left: 24px; text-transform: uppercase; letter-spacing: 0.03em; }
+  .trait-group-label {
+    font-weight: 700;
+    color: var(--purple);
+    font-size: 11.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin: 14px 0 6px;
+  }
+  .trait-group-label:first-child { margin-top: 0; }
+  .category-picker .traits label { padding: 12px 14px; }
+  .category-picker .trait-desc { margin-left: 0; margin-top: 2px; }
   button {
     width: 100%;
     margin-top: 22px;
@@ -154,24 +166,57 @@
       <label>What did they do?</label>
       <textarea id="what" required placeholder="Be specific — what did you actually see or hear?"></textarea>
 
-      <label>Which one fits best? <span class="hint">(pick what it felt like, not a specific word)</span></label>
-      <div class="traits">
+      <label>What kind of moment was this?</label>
+      <div class="traits category-picker">
         <label>
-          <div class="trait-row"><input type="radio" name="trait" value="Freudenfreude" required> <span class="trait-name">Freudenfreude</span></div>
-          <span class="trait-desc">celebrating someone else's win like it's your own</span>
+          <div class="trait-row"><input type="radio" name="category" value="LRG" id="catLRG"> <span class="trait-name">A Life Ready Graduate trait</span></div>
+          <span class="trait-desc">Communication, Critical Thinking, Integrity, and the rest of the district's 12</span>
         </label>
         <label>
-          <div class="trait-row"><input type="radio" name="trait" value="Hope"> <span class="trait-name">Hope</span></div>
-          <span class="trait-desc">helping someone believe things can get better</span>
+          <div class="trait-row"><input type="radio" name="category" value="Peaks" id="catPeaks"> <span class="trait-name">A Mountaineer Peaks expectation</span></div>
+          <span class="trait-desc">Be Present, Be Personable, or Be Productive</span>
         </label>
-        <label>
-          <div class="trait-row"><input type="radio" name="trait" value="Belonging"> <span class="trait-name">Belonging</span></div>
-          <span class="trait-desc">making sure someone felt included</span>
-        </label>
-        <label>
-          <div class="trait-row"><input type="radio" name="trait" value="Curiosity"> <span class="trait-name">Curiosity</span></div>
-          <span class="trait-desc">genuinely caring what someone else thinks or feels</span>
-        </label>
+      </div>
+
+      <div id="lrgSection" style="display:none;">
+        <label>Which LRG trait?</label>
+        <div class="traits">
+          <div class="trait-group-label">Acquire the Knowledge</div>
+          <label><div class="trait-row"><input type="radio" name="trait" value="Content Mastery &amp; Financial Literacy"> <span class="trait-name">Content Mastery &amp; Financial Literacy</span></div></label>
+          <label><div class="trait-row"><input type="radio" name="trait" value="Healthy Living, Wellness, &amp; Self-Awareness"> <span class="trait-name">Healthy Living, Wellness, &amp; Self-Awareness</span></div></label>
+          <label><div class="trait-row"><input type="radio" name="trait" value="Civics, Leadership, &amp; Service"> <span class="trait-name">Civics, Leadership, &amp; Service</span></div></label>
+          <label><div class="trait-row"><input type="radio" name="trait" value="Digital Literacy &amp; Technological Proficiency"> <span class="trait-name">Digital Literacy &amp; Technological Proficiency</span></div></label>
+
+          <div class="trait-group-label">Apply the Skills</div>
+          <label><div class="trait-row"><input type="radio" name="trait" value="Communication &amp; Empathy"> <span class="trait-name">Communication &amp; Empathy</span></div></label>
+          <label><div class="trait-row"><input type="radio" name="trait" value="Critical Thinking &amp; Problem Solving"> <span class="trait-name">Critical Thinking &amp; Problem Solving</span></div></label>
+          <label><div class="trait-row"><input type="radio" name="trait" value="Creativity &amp; Innovation"> <span class="trait-name">Creativity &amp; Innovation</span></div></label>
+          <label><div class="trait-row"><input type="radio" name="trait" value="Collaboration &amp; Teamwork"> <span class="trait-name">Collaboration &amp; Teamwork</span></div></label>
+
+          <div class="trait-group-label">Demonstrate the Dispositions</div>
+          <label><div class="trait-row"><input type="radio" name="trait" value="Honesty, Integrity, &amp; Responsibility"> <span class="trait-name">Honesty, Integrity, &amp; Responsibility</span></div></label>
+          <label><div class="trait-row"><input type="radio" name="trait" value="Adaptability &amp; Flexibility"> <span class="trait-name">Adaptability &amp; Flexibility</span></div></label>
+          <label><div class="trait-row"><input type="radio" name="trait" value="Continual Learning &amp; A Growth Mindset"> <span class="trait-name">Continual Learning &amp; A Growth Mindset</span></div></label>
+          <label><div class="trait-row"><input type="radio" name="trait" value="Resilience &amp; Grit"> <span class="trait-name">Resilience &amp; Grit</span></div></label>
+        </div>
+      </div>
+
+      <div id="peaksSection" style="display:none;">
+        <label>Which Mountaineer Peaks expectation?</label>
+        <div class="traits">
+          <label>
+            <div class="trait-row"><input type="radio" name="trait" value="Be Present"> <span class="trait-name">Be Present</span></div>
+            <span class="trait-desc">showed up, stayed engaged, paid attention</span>
+          </label>
+          <label>
+            <div class="trait-row"><input type="radio" name="trait" value="Be Personable"> <span class="trait-name">Be Personable</span></div>
+            <span class="trait-desc">was kind, respectful, and included others</span>
+          </label>
+          <label>
+            <div class="trait-row"><input type="radio" name="trait" value="Be Productive"> <span class="trait-name">Be Productive</span></div>
+            <span class="trait-desc">stayed focused and got it done the right way</span>
+          </label>
+        </div>
       </div>
 
       <label>Your grade</label>
@@ -235,17 +280,40 @@
   const form = document.getElementById("cairnForm");
   const submitBtn = document.getElementById("submitBtn");
   const statusBox = document.getElementById("status");
+  const catLRG = document.getElementById("catLRG");
+  const catPeaks = document.getElementById("catPeaks");
+  const lrgSection = document.getElementById("lrgSection");
+  const peaksSection = document.getElementById("peaksSection");
+
+  // Switching category clears whatever trait was picked under the other
+  // one — otherwise a hidden, still-checked radio from the section you
+  // left would silently win when the payload is built.
+  function showCategory(section, other) {
+    section.style.display = "block";
+    other.style.display = "none";
+    other.querySelectorAll('input[name="trait"]:checked').forEach(el => { el.checked = false; });
+  }
+  catLRG.addEventListener("change", () => showCategory(lrgSection, peaksSection));
+  catPeaks.addEventListener("change", () => showCategory(peaksSection, lrgSection));
 
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
+
+    const categoryInput = form.querySelector('input[name="category"]:checked');
+    const traitInput = form.querySelector('input[name="trait"]:checked');
+    if (!categoryInput || !traitInput) {
+      alert("Pick what kind of moment this was, then which one fits.");
+      return;
+    }
+
     submitBtn.disabled = true;
     submitBtn.textContent = "Sending...";
 
-    const traitInput = form.querySelector('input[name="trait"]:checked');
     const payload = {
       who: document.getElementById("who").value.trim(),
       what: document.getElementById("what").value.trim(),
-      trait: traitInput ? traitInput.value : "",
+      category: categoryInput.value === "LRG" ? "LRG Trait" : "Mountaineer Peaks",
+      trait: traitInput.value,
       grade: document.getElementById("grade").value,
       studentId: document.getElementById("studentId").value.trim(),
       name: document.getElementById("name").value.trim(),
